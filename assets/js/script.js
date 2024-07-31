@@ -5,7 +5,8 @@ let tareas = [
     { tarea: "Pagar la tarjeta de crédito" }
 ]
 
-
+//Defino las variables para manipular el DOM, aseguro que el formulario
+//no se muestre inicialmente y que lo haga al apretar el boton
 
 const botonagregartarea = document.getElementById("boton1");
 const formulario = document.getElementById("formulario");
@@ -16,12 +17,12 @@ formulario.style.display = 'none';
 botonagregartarea.addEventListener("click", function ocultarmostrarform() {
     if (formulario.style.display == "none") {
         formulario.style.display = "block";
-        
-    } else { formulario.style.display = "none"}
-    
+
+    } else { formulario.style.display = "none" }
 })
 
-cuerpotabla = document.getElementById ("cuerpo-tabla")
+//Establezco la funcion para agregar cada fila por tarea
+cuerpotabla = document.getElementById("cuerpo-tabla")
 
 function agregarfila(tarea) {
     const nuevafila = document.createElement("tr");
@@ -32,35 +33,36 @@ function agregarfila(tarea) {
     const celdabtnfinalizar = document.createElement("td");
     const botonfinalizar = document.createElement("button");
     botonfinalizar.className = "btn btn-danger";
-    botonfinalizar.textContent ="Finalizar";
+    botonfinalizar.textContent = "Finalizar";
+
     botonfinalizar.addEventListener("click", function removertarea() {
         cuerpotabla.removeChild(nuevafila)
-        
     });
+
     celdabtnfinalizar.appendChild(botonfinalizar);
-    nuevafila.appendChild(celdatarea);
     nuevafila.appendChild(celdabtnfinalizar);
     cuerpotabla.appendChild(nuevafila);
-    
 }
 
 
-
+//Establezco la funcionalidad del boton agregar tarea, donde llamo 
+// a la funcion creada anteriormente agregarfila.
 const botonagregar = document.getElementById("boton2");
-const ingresotarea = document.getElementById ("nuevaTarea");
+const ingresotarea = document.getElementById("nuevaTarea");
 
-botonagregar.addEventListener("click", function agregartarea () {
+botonagregar.addEventListener("click", function agregartarea() {
     tareanueva = ingresotarea.value;
-    tareas.push({tarea: tareanueva});
+    tareas.push({ tarea: tareanueva });
     agregarfila(tareanueva);
-    ingresotarea = "";
+    ingresotarea.value = "";
     formulario.style.display = 'none';
-
-    
 })
-    
-tareas.forEach(tarea =>{
-    agregarfila (tarea.tarea)
+
+
+//Establezco que por cada tarea presente en el array tareas se cree 
+//una fila con cada tarea usando la funcion agregarfila
+tareas.forEach(tarea => {
+    agregarfila(tarea.tarea)
 })
 
 
